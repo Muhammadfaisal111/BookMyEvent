@@ -2,6 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const OTP = require("../models/OTP");
+const { sendOTPEmail } = require("../utils/email");
 
 const generateOTP = () =>
   Math.floor(100000 + Math.random() * 900000).toString();
@@ -62,13 +63,11 @@ exports.login = async (req, res) => {
         action: "account_verification",
       });
       await sendOTPEmail(user.email, otp, "account_verification");
-      return res
-        .status(403)
-        .json({
-          message: "Account not verified",
-          needsVerification: true,
-          email: user.email,
-        });
+      return res.status(403).json({
+        message: "Account not verified",
+        needsVerification: true,
+        email: user.email,
+      });
     }
 
     res.json({

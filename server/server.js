@@ -17,6 +17,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 }); // just for testing the server
 
+app.post("/api/auth", authRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
