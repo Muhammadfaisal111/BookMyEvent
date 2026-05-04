@@ -1,9 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./src/config/db");
+
 require("dotenv").config();
 
+const authRoutes = require("./src/routes/authRoutes");
+
 const app = express();
+app.use(cors());
+app.use(express.json()); // Middleware to parse JSON bodies
+
+app.use("/api/auth", authRoutes); // Use auth routes
 connectDB();
 
 app.get("/", (req, res) => {
