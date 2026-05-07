@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+
 const connectDB = require("./src/config/db");
 
 require("dotenv").config();
 
 const authRoutes = require("./src/routes/authRoutes");
+const eventRoutes = require("./src/routes/events");
 
 const app = express();
 app.use(cors());
@@ -18,6 +20,7 @@ app.get("/", (req, res) => {
 }); // just for testing the server
 
 app.post("/api/auth", authRoutes);
+app.post("/api/events", eventRoutes);
 
 const PORT = process.env.PORT || 5000;
 
